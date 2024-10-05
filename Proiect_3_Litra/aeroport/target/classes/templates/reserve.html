@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reserve Flight</title>
+</head>
+<body>
+<h1>Select Your Flight</h1>
+
+<h2>Available Flights</h2>
+<form th:action="@{/reserve}" method="post" th:if="${flight != null && !flight.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Select</th>
+            <th>City</th>
+            <th>Departure Date</th>
+            <th>Arrival Date</th>
+            <th>Airline</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="flight : ${flight}">
+            <td>
+                <input type="radio" name="flightId" th:value="${flight.id}" required>
+            </td>
+            <td th:text="${flight.city}"></td>
+            <td th:text="${flight.departureDate}"></td>
+            <td th:text="${flight.arrivalDate}"></td>
+            <td th:text="${flight.airline}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <input type="hidden" name="flightId" th:value="${selectedFlightId}">
+        <input type="hidden" name="numberOfAdults" th:value="${numberOfAdults}">
+        <input type="hidden" name="numberOfChildren" th:value="${numberOfChildren}">
+        <button type="submit">Reserve Flight</button>
+    </div>
+</form>
+
+</body>
+</html>
